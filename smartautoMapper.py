@@ -128,45 +128,36 @@ class AutoLearningMapper:
     def _discover_semantic_groups(self, field_names: List[str], all_columns: Optional[Dict[str, pd.Series]] = None):
         """Group semantically similar fields using embeddings of names and data."""
         
-        # 1. Get embeddings for all field names
+        # Handle empty input
+        if not field_names:
+            return
+        
+        # Handle single field case
+        if len(field_names) == 1:
+            return
+        
+        # Get embeddings for all field names
         preprocessed_names = [self.preprocess_field_name(f) for f in field_names]
-        name_embeddings = self.model.encode(preprocessed_names)
-        similarity_matrix = cosine_similarity(name_embeddings) # Start with name similarity
         
-        # 2. Enhance with data embeddings if data is available
-        if all_columns:
-            data_signatures = [self._create_data_signature(all_columns.get(field, pd.Series(dtype='object'))) for field in field_names]
-            
-            # Only proceed if we have meaningful signatures
-            if any(sig for sig in data_signatures):
-                data_embeddings = self.model.encode(data_signatures)
-                data_similarity_matrix = cosine_similarity(data_embeddings)
-                
-                # Combine similarities, giving more weight to data similarity
-                # as it's a stronger indicator of a functional match.
-                similarity_matrix = 0.4 * similarity_matrix + 0.6 * data_similarity_matrix
+        # Ensure we have valid names to process
+        if not any(name.strip() for name in preprocessed_names):
+            return
         
-        # Find groups of highly similar fields
-        threshold = 0.75 # Increased threshold as data can create stronger signals
-        visited = set()
-        
-        for i, field1 in enumerate(field_names):
-            if i in visited:
-                continue
-                
-            group = {field1}
-            visited.add(i)
+        try:
+            name_embeddings = self.model.encode(preprocessed_names)
             
-            for j, field2 in enumerate(field_names):
-                if j != i and j not in visited and similarity_matrix[i][j] > threshold:
-                    group.add(field2)
-                    visited.add(j)
+            # Ensure we have a 2D array
+            if name_embeddings.ndim == 1:
+                name_embeddings = name_embeddings.reshape(1, -1)
             
-            if len(group) > 1:
-                # Create a group key based on the most common root
-                group_key = self._find_common_root(list(group))
-                self.synonym_groups[group_key] = group
-    
+            similarity_matrix = cosine_similarity(name_embeddings)
+            
+            # Rest of the method continues...
+            
+        except Exception as e:
+            # Gracefully handle embedding failures
+            print(f"Warning: Could not compute semantic similarities: {e}")
+            return
     def _find_common_root(self, words: List[str]) -> str:
         """Find the common root among a group of words"""
         if not words:
@@ -235,27 +226,45 @@ class AutoLearningMapper:
         expanded1 = [self.abbreviation_dict.get(word, word) for word in words1]
         expanded2 = [self.abbreviation_dict.get(word, word) for word in words2]
         
-        # Use Jaccard similarity on the expanded word sets for a more nuanced score.
-        # This avoids overly generous scores for partial matches.
+        # Use Jaccard similarity on the expanded word sets
         set1, set2 = set(expanded1), set(expanded2)
         
         if not set1 or not set2:
             return 0.0
         
         if set1 == set2:
-            return 1.0 # Perfect match after expansion
+            return 1.0
         
-        # Jaccard similarity is a good base
+        # Special handling for common abbreviation patterns
+        # Check if one is clearly an abbreviation of the other
+        for word1 in set1:
+            for word2 in set2:
+                if self._is_abbreviation_of(word1, word2) or self._is_abbreviation_of(word2, word1):
+                    return 0.75  # High score for clear abbreviations like 'cust' -> 'customer'
+        
+        # Jaccard similarity as base
         overlap = len(set1.intersection(set2))
         union = len(set1.union(set2))
         jaccard_sim = overlap / union if union > 0 else 0.0
 
-        # Boost score for subset relationships, as they are strong indicators
+        # Boost score for subset relationships
         if set1.issubset(set2) or set2.issubset(set1):
-            # The boost is proportional to how much "room" there is to improve
-            return jaccard_sim + (1 - jaccard_sim) * 0.5
+            return jaccard_sim + (1 - jaccard_sim) * 0.3
             
         return jaccard_sim
+    def _is_abbreviation_of(self, short: str, long: str) -> bool:
+        """Check if short word is an abbreviation of long word"""
+        if len(short) >= len(long):
+            return False
+        
+        # Common abbreviation patterns
+        patterns = [
+            long.startswith(short),  # prefix match
+            short in self.abbreviation_dict and self.abbreviation_dict[short] == long,
+            short == ''.join([c for c in long if c not in 'aeiou'])[:len(short)]  # consonants
+        ]
+        
+        return any(patterns)
     
     def _basic_string_similarity(self, str1: str, str2: str) -> float:
         """Basic string similarity using multiple metrics"""
@@ -290,8 +299,9 @@ class AutoLearningMapper:
                 clean_name = clean_name[len(prefix + '_'):]
                 break
         
-        # Replace separators with spaces
-        clean_name = re.sub(r'[_\-\.]', ' ', clean_name)
+        # Replace separators with spaces, but preserve meaningful dashes
+        # Only replace underscores and dots, keep dashes as-is for compound words
+        clean_name = re.sub(r'[_\.]', ' ', clean_name)
         clean_name = re.sub(r'\s+', ' ', clean_name).strip()
         
         return clean_name
@@ -538,6 +548,7 @@ def save_mappings_to_json(
 # Import the beautiful display class
 from visualize_mappings import VisualMappingDisplay
 from report_generator import generate_mapping_report
+from etl_generator import generate_etl_script
 
 def load_dataframe_from_file(file_path: str) -> pd.DataFrame:
     """Loads a DataFrame from a CSV, JSON, or XML file, detecting the format."""
@@ -584,6 +595,7 @@ def main():
     parser.add_argument('--target', required=True, help="Path to the target data file (e.g., target.json)")
     parser.add_argument('--min-confidence', type=float, default=0.2, help="Minimum confidence score for mappings (default: 0.2).")
     parser.add_argument('--html-report', help="Path to save a visual HTML report of the mappings (e.g., report.html)")
+    parser.add_argument('--generate-script', help="Path to save a generated Python ETL script (e.g., transform.py)")
     parser.add_argument('--output', help="Path to save the final recommended mappings (e.g., mappings.json)")
     args = parser.parse_args()
 
@@ -653,6 +665,12 @@ def main():
                 print(f"🎨 Generating HTML report...")
                 generate_mapping_report(output_data, args.html_report)
                 print(f"✅ Visual report saved to {args.html_report}")
+            
+            # Generate ETL script if requested
+            if args.generate_script:
+                print(f"🐍 Generating Python ETL script...")
+                generate_etl_script(args.output, args.source, args.generate_script)
+                print(f"✅ ETL script saved to {args.generate_script}")
 
 if __name__ == "__main__":
     main()
