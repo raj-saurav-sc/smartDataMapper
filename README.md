@@ -19,6 +19,7 @@ The project evolves from simple rule-based matching to a sophisticated `AutoLear
     -   Highlight unmapped fields and potential conflicts.
     -   Export the view as a PNG image.
 -   **Comprehensive JSON Output**: Exports a detailed JSON report with recommended mappings, unmapped fields, and potential conflicts for programmatic use.
+-   **ETL Script Generation**: Automatically generates a standalone Python script to perform the data transformation based on the recommended mappings.
 -   **Flexible Command-Line Interface**: Easy to integrate into automated workflows and data pipelines.
 
 ## 🚀 Getting Started
@@ -71,6 +72,7 @@ python smartautoMapper.py \
   --target target.json \
   --output recommended_mappings.json \
   --html-report mapping_report.html
+  --generate-script: (Optional) Path to save a generated Python ETL script (e.g., transform.py). Requires --output to be set.--min-confidence: (Optional) The minimum confidence score for a mapping to be considered. Defaults to 0.2.
 ```
 
 ### Command-Line Arguments
