@@ -37,28 +37,21 @@ The project evolves from simple rule-based matching to a sophisticated `AutoLear
     cd smartDataMapper
     ```
 
-2.  **Create a virtual environment (recommended):**
+2.  **Create and activate a virtual environment (recommended):**
     ```bash
     python3 -m venv venv
     source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
     ```
 
-3.  **Install the required libraries:**
-    A `requirements.txt` file should be created with the following content:
-    ```
-    pandas
-    numpy
-    sentence-transformers
-    scikit-learn
-    colorama
-    lxml
-    python-levenshtein
-    ```
-    Then run:
+3.  **Install the package:**
+    The project is packaged with `setup.py`. To install it along with all its dependencies, run:
     ```bash
-    pip install -r requirements.txt
+    pip install .
     ```
-    *Note: `lxml` is required for XML file support.*
+    For developers who want to modify the code, install it in editable mode:
+    ```bash
+    pip install -e .
+    ```
 
 ## Usage
 
@@ -67,12 +60,12 @@ Run the mapper from the command line, providing the source and target data files
 ### Basic Example
 
 ```bash
-python smartautoMapper.py \
+smart-mapper \
   --source source.csv \
   --target target.json \
   --output recommended_mappings.json \
-  --html-report mapping_report.html
-  --generate-script: (Optional) Path to save a generated Python ETL script (e.g., transform.py). Requires --output to be set.--min-confidence: (Optional) The minimum confidence score for a mapping to be considered. Defaults to 0.2.
+  --html-report mapping_report.html \
+  --generate-script transform.py
 ```
 
 ### Command-Line Arguments
