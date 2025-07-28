@@ -9,15 +9,17 @@ The project evolves from simple rule-based matching to a sophisticated `AutoLear
 * **Auto-Learning Engine**: Automatically discovers patterns, abbreviations, and semantic relationships from your data fields and content. No manual rule-writing needed.
 * **Multi-Format Support**: Natively reads and parses data from CSV, nested JSON, and XML files.
 * **Intelligent Matching**: Combines multiple techniques for high accuracy:
-   * Levenshtein distance and Jaccard similarity for string matching.
-   * Sentence-Transformers for deep semantic understanding of field names and content.
-   * Data-driven type inference (numeric, date, string, etc.).
+
+  * Levenshtein distance and Jaccard similarity for string matching.
+  * Sentence-Transformers for deep semantic understanding of field names and content.
+  * Data-driven type inference (numeric, date, string, etc.).
 * **Interactive HTML Report**: Generates a self-contained, interactive visual report to:
-   * Visualize mappings with a tree-like structure.
-   * Hover over fields for detailed tooltips (confidence, reasoning, sample data).
-   * Filter mappings by confidence level.
-   * Highlight unmapped fields and potential conflicts.
-   * Export the view as a PNG image.
+
+  * Visualize mappings with a tree-like structure.
+  * Hover over fields for detailed tooltips (confidence, reasoning, sample data).
+  * Filter mappings by confidence level.
+  * Highlight unmapped fields and potential conflicts.
+  * Export the view as a PNG image.
 * **Comprehensive JSON Output**: Exports a detailed JSON report with recommended mappings, unmapped fields, and potential conflicts for programmatic use.
 * **ETL Script Generation**: Automatically generates a standalone Python script to perform the data transformation based on the recommended mappings.
 * **Flexible Command-Line Interface**: Easy to integrate into automated workflows and data pipelines.
@@ -113,7 +115,7 @@ smart-mapper --source data/users.csv --target data/customers.json --generate-scr
 python transform.py
 ```
 
-4. **Check the output:** A new file, transformed_data.json, will be created in the same directory, containing the source data structured according to the target schema.
+4. **Check the output:** A new file, transformed\_data.json, will be created in the same directory, containing the source data structured according to the target schema.
 
 ## 📊 Understanding the Output
 
@@ -127,10 +129,10 @@ Get an immediate, color-coded summary of the results, including recommended mapp
 
 A powerful, self-contained HTML file for exploring the mappings visually.
 
-- **Visual Connections**: Lines connect mapped fields, colored by confidence (Green: High, Yellow: Medium, Red: Low).
-- **Rich Tooltips**: Hover over any field or line to see detailed metrics, the reasoning for the match, and a sample source value.
-- **Filtering**: Use checkboxes to show or hide mappings based on their confidence level.
-- **Conflict & Unmapped Highlighting**: Unmapped fields and fields with alternative mappings are clearly marked.
+* **Visual Connections**: Lines connect mapped fields, colored by confidence (Green: High, Yellow: Medium, Red: Low).
+* **Rich Tooltips**: Hover over any field or line to see detailed metrics, the reasoning for the match, and a sample source value.
+* **Filtering**: Use checkboxes to show or hide mappings based on their confidence level.
+* **Conflict & Unmapped Highlighting**: Unmapped fields and fields with alternative mappings are clearly marked.
 
 ### 3. Comprehensive JSON Report (--output)
 
@@ -154,9 +156,9 @@ A machine-readable file perfect for programmatic use.
       "sample_source_value": "John Doe"
     }
   ],
-  "unmapped_fields": { 
-    "source": [], 
-    "target": ["notes"] 
+  "unmapped_fields": {
+    "source": [],
+    "target": ["notes"]
   },
   "conflicting_mappings": [
     {
@@ -172,14 +174,45 @@ A machine-readable file perfect for programmatic use.
 
 A standalone Python script that uses Pandas to perform the transformation defined in the mappings.json file. It serves as an excellent starting point for a production data pipeline.
 
+## ✅ Test Coverage
+
+The Smart Data Mapper is well-tested across unit, integration, and regression levels to ensure correctness, reliability, and maintainability.
+
+### 🔍 Test Summary
+
+| Metric                | Value                      |
+| --------------------- | -------------------------- |
+| **Total Tests Run**   | 23                         |
+| **Passed**            | ✅ 23                       |
+| **Failed**            | ❌ 0                        |
+| **Skipped**           | 0                          |
+| **Errors**            | 0                          |
+| **Unexpected Passes** | 0                          |
+| **Expected Failures** | 0                          |
+| **Reruns**            | 0                          |
+| **Total Duration**    | ⏱️ 1 minute 3 seconds      |
+| **Python Version**    | 3.11.13                    |
+| **Platform**          | Linux (WSL2)               |
+| **Test Framework**    | pytest 8.4.1               |
+| **Plugins Used**      | html, cov, anyio, metadata |
+
+> All tests passed successfully, including:
+>
+> * Abbreviation discovery
+> * Semantic group analysis
+> * String similarity matching
+> * End-to-end ETL generation
+> * File handling (CSV, JSON)
+> * Regression checks for confidence and completeness
+
 ## Project Structure
 
-- `smartautoMapper.py`: The main CLI application and the core `AutoLearningMapper` class logic.
-- `report_generator.py`: Generates the interactive HTML visualization from the mapping data.
-- `visualize_mappings.py`: A helper class for generating formatted, color-coded terminal output.
-- `etl_generator.py`: Generates the standalone Python ETL script.
-- `enhanced_mapper.py` / `main.py`: Earlier versions of the mapper, kept for reference.
-- `setup.py`: The package definition for easy installation via pip.
+* `smartautoMapper.py`: The main CLI application and the core `AutoLearningMapper` class logic.
+* `report_generator.py`: Generates the interactive HTML visualization from the mapping data.
+* `visualize_mappings.py`: A helper class for generating formatted, color-coded terminal output.
+* `etl_generator.py`: Generates the standalone Python ETL script.
+* `enhanced_mapper.py` / `main.py`: Earlier versions of the mapper, kept for reference.
+* `setup.py`: The package definition for easy installation via pip.
 
 ## Contributing
 
