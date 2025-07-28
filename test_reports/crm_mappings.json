@@ -1,0 +1,146 @@
+{
+  "metadata": {
+    "source_file": "crm_source.csv",
+    "target_file": "crm_target.csv",
+    "generated_at": "2025-07-28T16:36:35.240043",
+    "mapping_count": 7,
+    "unmapped_source_count": 1,
+    "unmapped_target_count": 0,
+    "conflicting_mappings_count": 1
+  },
+  "recommended_mappings": [
+    {
+      "source_field": "contact_id",
+      "target_field": "id",
+      "confidence_score": 1.0000000238418578,
+      "similarity_type": "Semantic Group Match",
+      "reasoning": "Fields were grouped based on data and name similarity",
+      "string_similarity": 1.0,
+      "semantic_similarity": 1.0000001192092896,
+      "pattern_match": "auto-learned",
+      "data_type_match": 1.0,
+      "abbreviation_match": 1.0,
+      "semantic_group_match": 1.0,
+      "source_data_type": "numeric",
+      "target_data_type": "numeric",
+      "sample_source_value": "1"
+    },
+    {
+      "source_field": "lead_score",
+      "target_field": "score",
+      "confidence_score": 0.7564303708076476,
+      "similarity_type": "Semantic Group Match",
+      "reasoning": "Fields were grouped based on data and name similarity",
+      "string_similarity": 0.65,
+      "semantic_similarity": 0.7446518540382385,
+      "pattern_match": "auto-learned",
+      "data_type_match": 1.0,
+      "abbreviation_match": 0.65,
+      "semantic_group_match": 1.0,
+      "source_data_type": "numeric",
+      "target_data_type": "numeric",
+      "sample_source_value": "50"
+    },
+    {
+      "source_field": "status",
+      "target_field": "account_status",
+      "confidence_score": 0.690827865600586,
+      "similarity_type": "Semantic Group Match",
+      "reasoning": "Fields were grouped based on data and name similarity",
+      "string_similarity": 0.65,
+      "semantic_similarity": 0.6666393280029297,
+      "pattern_match": "auto-learned",
+      "data_type_match": 0.5,
+      "abbreviation_match": 0.65,
+      "semantic_group_match": 1.0,
+      "source_data_type": "string",
+      "target_data_type": "unknown",
+      "sample_source_value": "active"
+    },
+    {
+      "source_field": "email_addr",
+      "target_field": "email",
+      "confidence_score": 0.6873724055290222,
+      "similarity_type": "Semantic Group Match",
+      "reasoning": "Fields were grouped based on data and name similarity",
+      "string_similarity": 0.65,
+      "semantic_similarity": 0.6493620276451111,
+      "pattern_match": "auto-learned",
+      "data_type_match": 0.5,
+      "abbreviation_match": 0.65,
+      "semantic_group_match": 1.0,
+      "source_data_type": "numeric",
+      "target_data_type": "unknown",
+      "sample_source_value": "user0@company.com"
+    },
+    {
+      "source_field": "phone_num",
+      "target_field": "contact_phone",
+      "confidence_score": 0.5364943218231202,
+      "similarity_type": "Abbreviation Match",
+      "reasoning": "One field appears to be abbreviation of the other",
+      "string_similarity": 0.65,
+      "semantic_similarity": 0.6449716091156006,
+      "pattern_match": "auto-learned",
+      "data_type_match": 0.5,
+      "abbreviation_match": 0.65,
+      "semantic_group_match": 0.0,
+      "source_data_type": "numeric",
+      "target_data_type": "unknown",
+      "sample_source_value": "555-1000"
+    },
+    {
+      "source_field": "company",
+      "target_field": "organization",
+      "confidence_score": 0.38386663993199666,
+      "similarity_type": "Semantic Group Match",
+      "reasoning": "Fields were grouped based on data and name similarity",
+      "string_similarity": 0.16666666666666663,
+      "semantic_similarity": 0.6276665329933167,
+      "pattern_match": "auto-learned",
+      "data_type_match": 0.5,
+      "abbreviation_match": 0.0,
+      "semantic_group_match": 1.0,
+      "source_data_type": "numeric",
+      "target_data_type": "unknown",
+      "sample_source_value": "Company 0"
+    },
+    {
+      "source_field": "fname",
+      "target_field": "full_name",
+      "confidence_score": 0.3542396571901109,
+      "similarity_type": "Pattern Match",
+      "reasoning": "Fields share common patterns",
+      "string_similarity": 0.5555555555555556,
+      "semantic_similarity": 0.5489760637283325,
+      "pattern_match": "auto-learned",
+      "data_type_match": 0.5,
+      "abbreviation_match": 0.0,
+      "semantic_group_match": 0.0,
+      "source_data_type": "numeric",
+      "target_data_type": "unknown",
+      "sample_source_value": "FirstName0"
+    }
+  ],
+  "unmapped_fields": {
+    "source": [
+      "lname"
+    ],
+    "target": []
+  },
+  "conflicting_mappings": [
+    {
+      "source_field": "lname",
+      "target_field": "full_name",
+      "confidence_score": 0.35225613382127546,
+      "similarity_type": "Pattern Match",
+      "reasoning": "Fields share common patterns",
+      "string_similarity": 0.5555555555555556,
+      "semantic_similarity": 0.5390584468841553,
+      "pattern_match": "auto-learned",
+      "data_type_match": 0.5,
+      "abbreviation_match": 0.0,
+      "semantic_group_match": 0.0
+    }
+  ]
+}

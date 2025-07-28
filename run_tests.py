@@ -85,7 +85,7 @@ class TestRunner:
         """Create sample datasets for testing"""
         print(f"📊 Creating sample datasets in {output_dir}...")
         cmd = [
-            "python", "test_smart_mapper.py", 
+            "/bin/python3.11", "test_smart_mapper.py", 
             "--create-samples", 
             "--sample-dir", output_dir
         ]
@@ -94,7 +94,7 @@ class TestRunner:
     def run_benchmarks(self):
         """Run performance benchmarks"""
         print("⏱️  Running Performance Benchmarks...")
-        cmd = ["python", "test_smart_mapper.py", "--benchmark"]
+        cmd = ["/bin/python3.11", "test_smart_mapper.py", "--benchmark"]
         return subprocess.run(cmd, cwd=self.project_root)
     
     def test_with_sample_data(self, dataset_name="ecommerce", verbose=False):
@@ -118,7 +118,7 @@ class TestRunner:
         
         # Run the mapper
         cmd = [
-            "python", "-m", "smartautoMapper",
+            "/bin/python3.11", "-m", "smartautoMapper",
             "--source", str(source_file),
             "--target", str(target_file),
             "--output", str(output_file),
@@ -195,7 +195,7 @@ class TestRunner:
         report_file = self.reports_dir / "test_summary.html"
         
         cmd = [
-            "python", "-m", "pytest", "test_smart_mapper.py",
+            "/bin/python3.11", "-m", "pytest", "test_smart_mapper.py",
             "--html=" + str(report_file),
             "--self-contained-html",
             "--cov=smartautoMapper",

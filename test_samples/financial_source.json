@@ -1,0 +1,272 @@
+[
+  {
+    "account_num":"ACC1000",
+    "cust_name":"Customer 0",
+    "balance_amt":1000.0,
+    "acct_type":"savings",
+    "open_date":"2020-01-31",
+    "branch_cd":"BR00",
+    "interest_rate":0.01
+  },
+  {
+    "account_num":"ACC1001",
+    "cust_name":"Customer 1",
+    "balance_amt":1100.5,
+    "acct_type":"checking",
+    "open_date":"2020-02-29",
+    "branch_cd":"BR01",
+    "interest_rate":0.011
+  },
+  {
+    "account_num":"ACC1002",
+    "cust_name":"Customer 2",
+    "balance_amt":1201.0,
+    "acct_type":"credit",
+    "open_date":"2020-03-31",
+    "branch_cd":"BR02",
+    "interest_rate":0.012
+  },
+  {
+    "account_num":"ACC1003",
+    "cust_name":"Customer 3",
+    "balance_amt":1301.5,
+    "acct_type":"savings",
+    "open_date":"2020-04-30",
+    "branch_cd":"BR03",
+    "interest_rate":0.013
+  },
+  {
+    "account_num":"ACC1004",
+    "cust_name":"Customer 4",
+    "balance_amt":1402.0,
+    "acct_type":"checking",
+    "open_date":"2020-05-31",
+    "branch_cd":"BR04",
+    "interest_rate":0.014
+  },
+  {
+    "account_num":"ACC1005",
+    "cust_name":"Customer 5",
+    "balance_amt":1502.5,
+    "acct_type":"credit",
+    "open_date":"2020-06-30",
+    "branch_cd":"BR00",
+    "interest_rate":0.015
+  },
+  {
+    "account_num":"ACC1006",
+    "cust_name":"Customer 6",
+    "balance_amt":1603.0,
+    "acct_type":"savings",
+    "open_date":"2020-07-31",
+    "branch_cd":"BR01",
+    "interest_rate":0.016
+  },
+  {
+    "account_num":"ACC1007",
+    "cust_name":"Customer 7",
+    "balance_amt":1703.5,
+    "acct_type":"checking",
+    "open_date":"2020-08-31",
+    "branch_cd":"BR02",
+    "interest_rate":0.017
+  },
+  {
+    "account_num":"ACC1008",
+    "cust_name":"Customer 8",
+    "balance_amt":1804.0,
+    "acct_type":"credit",
+    "open_date":"2020-09-30",
+    "branch_cd":"BR03",
+    "interest_rate":0.018
+  },
+  {
+    "account_num":"ACC1009",
+    "cust_name":"Customer 9",
+    "balance_amt":1904.5,
+    "acct_type":"savings",
+    "open_date":"2020-10-31",
+    "branch_cd":"BR04",
+    "interest_rate":0.019
+  },
+  {
+    "account_num":"ACC1010",
+    "cust_name":"Customer 10",
+    "balance_amt":2005.0,
+    "acct_type":"checking",
+    "open_date":"2020-11-30",
+    "branch_cd":"BR00",
+    "interest_rate":0.01
+  },
+  {
+    "account_num":"ACC1011",
+    "cust_name":"Customer 11",
+    "balance_amt":2105.5,
+    "acct_type":"credit",
+    "open_date":"2020-12-31",
+    "branch_cd":"BR01",
+    "interest_rate":0.011
+  },
+  {
+    "account_num":"ACC1012",
+    "cust_name":"Customer 12",
+    "balance_amt":2206.0,
+    "acct_type":"savings",
+    "open_date":"2021-01-31",
+    "branch_cd":"BR02",
+    "interest_rate":0.012
+  },
+  {
+    "account_num":"ACC1013",
+    "cust_name":"Customer 13",
+    "balance_amt":2306.5,
+    "acct_type":"checking",
+    "open_date":"2021-02-28",
+    "branch_cd":"BR03",
+    "interest_rate":0.013
+  },
+  {
+    "account_num":"ACC1014",
+    "cust_name":"Customer 14",
+    "balance_amt":2407.0,
+    "acct_type":"credit",
+    "open_date":"2021-03-31",
+    "branch_cd":"BR04",
+    "interest_rate":0.014
+  },
+  {
+    "account_num":"ACC1015",
+    "cust_name":"Customer 15",
+    "balance_amt":2507.5,
+    "acct_type":"savings",
+    "open_date":"2021-04-30",
+    "branch_cd":"BR00",
+    "interest_rate":0.015
+  },
+  {
+    "account_num":"ACC1016",
+    "cust_name":"Customer 16",
+    "balance_amt":2608.0,
+    "acct_type":"checking",
+    "open_date":"2021-05-31",
+    "branch_cd":"BR01",
+    "interest_rate":0.016
+  },
+  {
+    "account_num":"ACC1017",
+    "cust_name":"Customer 17",
+    "balance_amt":2708.5,
+    "acct_type":"credit",
+    "open_date":"2021-06-30",
+    "branch_cd":"BR02",
+    "interest_rate":0.017
+  },
+  {
+    "account_num":"ACC1018",
+    "cust_name":"Customer 18",
+    "balance_amt":2809.0,
+    "acct_type":"savings",
+    "open_date":"2021-07-31",
+    "branch_cd":"BR03",
+    "interest_rate":0.018
+  },
+  {
+    "account_num":"ACC1019",
+    "cust_name":"Customer 19",
+    "balance_amt":2909.5,
+    "acct_type":"checking",
+    "open_date":"2021-08-31",
+    "branch_cd":"BR04",
+    "interest_rate":0.019
+  },
+  {
+    "account_num":"ACC1020",
+    "cust_name":"Customer 20",
+    "balance_amt":3010.0,
+    "acct_type":"credit",
+    "open_date":"2021-09-30",
+    "branch_cd":"BR00",
+    "interest_rate":0.01
+  },
+  {
+    "account_num":"ACC1021",
+    "cust_name":"Customer 21",
+    "balance_amt":3110.5,
+    "acct_type":"savings",
+    "open_date":"2021-10-31",
+    "branch_cd":"BR01",
+    "interest_rate":0.011
+  },
+  {
+    "account_num":"ACC1022",
+    "cust_name":"Customer 22",
+    "balance_amt":3211.0,
+    "acct_type":"checking",
+    "open_date":"2021-11-30",
+    "branch_cd":"BR02",
+    "interest_rate":0.012
+  },
+  {
+    "account_num":"ACC1023",
+    "cust_name":"Customer 23",
+    "balance_amt":3311.5,
+    "acct_type":"credit",
+    "open_date":"2021-12-31",
+    "branch_cd":"BR03",
+    "interest_rate":0.013
+  },
+  {
+    "account_num":"ACC1024",
+    "cust_name":"Customer 24",
+    "balance_amt":3412.0,
+    "acct_type":"savings",
+    "open_date":"2022-01-31",
+    "branch_cd":"BR04",
+    "interest_rate":0.014
+  },
+  {
+    "account_num":"ACC1025",
+    "cust_name":"Customer 25",
+    "balance_amt":3512.5,
+    "acct_type":"checking",
+    "open_date":"2022-02-28",
+    "branch_cd":"BR00",
+    "interest_rate":0.015
+  },
+  {
+    "account_num":"ACC1026",
+    "cust_name":"Customer 26",
+    "balance_amt":3613.0,
+    "acct_type":"credit",
+    "open_date":"2022-03-31",
+    "branch_cd":"BR01",
+    "interest_rate":0.016
+  },
+  {
+    "account_num":"ACC1027",
+    "cust_name":"Customer 27",
+    "balance_amt":3713.5,
+    "acct_type":"savings",
+    "open_date":"2022-04-30",
+    "branch_cd":"BR02",
+    "interest_rate":0.017
+  },
+  {
+    "account_num":"ACC1028",
+    "cust_name":"Customer 28",
+    "balance_amt":3814.0,
+    "acct_type":"checking",
+    "open_date":"2022-05-31",
+    "branch_cd":"BR03",
+    "interest_rate":0.018
+  },
+  {
+    "account_num":"ACC1029",
+    "cust_name":"Customer 29",
+    "balance_amt":3914.5,
+    "acct_type":"credit",
+    "open_date":"2022-06-30",
+    "branch_cd":"BR04",
+    "interest_rate":0.019
+  }
+]

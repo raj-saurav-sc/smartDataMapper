@@ -1,0 +1,184 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Data Mapping Report</title>
+        <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #1e1e1e; color: #d4d4d4; margin: 0; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 10px; }
+        h1, h2 { color: #569cd6; margin: 0; }
+        .controls { display: flex; gap: 20px; align-items: center; }
+        .filter-group { display: flex; gap: 10px; align-items: center; background-color: #252526; padding: 5px 10px; border-radius: 5px; }
+        .export-btn { background-color: #0e639c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+        .export-btn:hover { background-color: #1177bb; }
+        .mapper-container { display: flex; position: relative; justify-content: space-between; padding: 20px; background-color: #252526; border-radius: 8px; margin-top: 20px; }
+        .column { width: 45%; }
+        ul { list-style-type: none; padding-left: 20px; }
+        li { background-color: #333; border: 1px solid #444; padding: 8px 12px; margin-bottom: 5px; border-radius: 4px; transition: all 0.2s ease-in-out; cursor: default; }
+        li.unmapped { border-left: 3px solid #d16d71; opacity: 0.6; }
+        li.conflict { border-left: 3px solid #ce9178; }
+        li.hidden-by-filter { opacity: 0.3; }
+        #connections-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .tooltip { position: absolute; display: none; background-color: #1e1e1e; border: 1px solid #569cd6; padding: 10px; border-radius: 6px; pointer-events: none; z-index: 100; max-width: 300px; font-size: 12px; }
+        .tooltip-reasoning { color: #ce9178; margin-top: 5px; }
+    </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Mapping Report: ecommerce_source.csv → ecommerce_target.csv</h1>
+            <div class="controls">
+                <div class="filter-group">
+                    <span>Filter:</span>
+                    <label><input type="checkbox" id="filter-high" checked> High</label>
+                    <label><input type="checkbox" id="filter-medium" checked> Medium</label>
+                    <label><input type="checkbox" id="filter-low" checked> Low</label>
+                </div>
+                <button id="export-btn" class="export-btn">Export as PNG</button>
+            </div>
+        </div>
+        <div id="tooltip" class="tooltip"></div>
+        <div class="mapper-container">
+            <div class="column" id="source-column">
+                <h2>Source Fields</h2>
+                <ul><li id="source-category-code" data-field="category_code"><span>category_code</span></li><li id="source-created-date" data-field="created_date"><span>created_date</span></li><li id="source-price-usd" data-field="price_usd"><span>price_usd</span></li><li id="source-prod-id" data-field="prod_id"><span>prod_id</span></li><li id="source-product-name" data-field="product_name"><span>product_name</span></li><li id="source-stock-count" data-field="stock_count"><span>stock_count</span></li></ul>
+            </div>
+            <svg id="connections-svg"></svg>
+            <div class="column" id="target-column">
+                <h2>Target Fields</h2>
+                <ul><li id="target-category" data-field="category"><span>category</span></li><li id="target-date-added" data-field="date_added"><span>date_added</span></li><li id="target-inventory-quantity" data-field="inventory_quantity"><span>inventory_quantity</span></li><li id="target-name" data-field="name"><span>name</span></li><li id="target-price" data-field="price"><span>price</span></li><li id="target-product-id" data-field="product_id"><span>product_id</span></li></ul>
+            </div>
+        </div>
+        <script>
+        // Load html2canvas library for exporting
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+        document.head.appendChild(script);
+
+        window.onload = () => {
+            const mappings = [{"source_field": "product_name", "target_field": "name", "confidence_score": 0.8000000238418579, "similarity_type": "Exact/Close Match", "reasoning": "Field names are very similar", "string_similarity": 1.0, "semantic_similarity": 1.0000001192092896, "pattern_match": "auto-learned", "data_type_match": 0.5, "abbreviation_match": 1.0, "semantic_group_match": 0.0, "source_data_type": "numeric", "target_data_type": "unknown", "sample_source_value": "Product 1"}, {"source_field": "prod_id", "target_field": "product_id", "confidence_score": 0.7373299074172973, "similarity_type": "Semantic Group Match", "reasoning": "Fields were grouped based on data and name similarity", "string_similarity": 0.65, "semantic_similarity": 0.6491495370864868, "pattern_match": "auto-learned", "data_type_match": 1.0, "abbreviation_match": 0.65, "semantic_group_match": 1.0, "source_data_type": "numeric", "target_data_type": "numeric", "sample_source_value": "1"}, {"source_field": "price_usd", "target_field": "price", "confidence_score": 0.7367469501495362, "similarity_type": "Semantic Group Match", "reasoning": "Fields were grouped based on data and name similarity", "string_similarity": 0.65, "semantic_similarity": 0.6462347507476807, "pattern_match": "auto-learned", "data_type_match": 1.0, "abbreviation_match": 0.65, "semantic_group_match": 1.0, "source_data_type": "numeric", "target_data_type": "numeric", "sample_source_value": "10.0"}, {"source_field": "category_code", "target_field": "category", "confidence_score": 0.697716875076294, "similarity_type": "Semantic Group Match", "reasoning": "Fields were grouped based on data and name similarity", "string_similarity": 0.65, "semantic_similarity": 0.7010843753814697, "pattern_match": "auto-learned", "data_type_match": 0.5, "abbreviation_match": 0.65, "semantic_group_match": 1.0, "source_data_type": "numeric", "target_data_type": "unknown", "sample_source_value": "CAT0"}, {"source_field": "created_date", "target_field": "date_added", "confidence_score": 0.5183718045552571, "similarity_type": "Semantic Group Match", "reasoning": "Fields were grouped based on data and name similarity", "string_similarity": 0.33333333333333337, "semantic_similarity": 0.6751923561096191, "pattern_match": "auto-learned", "data_type_match": 0.5, "abbreviation_match": 0.3333333333333333, "semantic_group_match": 1.0, "source_data_type": "numeric", "target_data_type": "unknown", "sample_source_value": "2023-01-01"}, {"source_field": "stock_count", "target_field": "inventory_quantity", "confidence_score": 0.31028655899895563, "similarity_type": "Pattern Match", "reasoning": "Fields share common patterns", "string_similarity": 0.2777777777777778, "semantic_similarity": 0.565321683883667, "pattern_match": "auto-learned", "data_type_match": 1.0, "abbreviation_match": 0.0, "semantic_group_match": 0.0, "source_data_type": "numeric", "target_data_type": "numeric", "sample_source_value": "50"}];
+            const unmappedSource = new Set([]);
+            const unmappedTarget = new Set([]);
+            const conflictingTargets = new Set([]);
+
+            const svg = document.getElementById('connections-svg');
+            const container = document.querySelector('.mapper-container');
+            const tooltip = document.getElementById('tooltip');
+            
+            const filters = {
+                high: document.getElementById('filter-high'),
+                medium: document.getElementById('filter-medium'),
+                low: document.getElementById('filter-low')
+            };
+
+            if (!container) return;
+
+            const getVisibleMappings = () => {
+                return mappings.filter(m => {
+                    const score = m.confidence_score;
+                    if (score >= 0.7 && filters.high.checked) return true;
+                    if (score >= 0.5 && score < 0.7 && filters.medium.checked) return true;
+                    if (score < 0.5 && filters.low.checked) return true;
+                    return false;
+                });
+            };
+
+            const drawLines = () => {
+                svg.innerHTML = ''; // Clear previous lines
+                const containerRect = container.getBoundingClientRect();
+                const visibleMappings = getVisibleMappings();
+                const visibleSourceFields = new Set(visibleMappings.map(m => m.source_field));
+                const visibleTargetFields = new Set(visibleMappings.map(m => m.target_field));
+
+                // Toggle visibility class on list items
+                document.querySelectorAll('#source-column li, #target-column li').forEach(li => {
+                    const fieldName = li.dataset.field;
+                    if (unmappedSource.has(fieldName) || unmappedTarget.has(fieldName)) {
+                        li.classList.add('unmapped');
+                    } else if (conflictingTargets.has(fieldName)) {
+                        li.classList.add('conflict');
+                    }
+
+                    if (!visibleSourceFields.has(fieldName) && !visibleTargetFields.has(fieldName) && !unmappedSource.has(fieldName) && !unmappedTarget.has(fieldName)) {
+                         li.classList.add('hidden-by-filter');
+                    } else {
+                         li.classList.remove('hidden-by-filter');
+                    }
+                });
+
+                visibleMappings.forEach(mapping => {
+                    const sourceId = `source-${mapping.source_field.replace(/[^a-zA-Z0-9]/g, '-')}`;
+                    const targetId = `target-${mapping.target_field.replace(/[^a-zA-Z0-9]/g, '-')}`;
+
+                    const sourceEl = document.getElementById(sourceId);
+                    const targetEl = document.getElementById(targetId);
+
+                    if (sourceEl && targetEl) {
+                        const sourceRect = sourceEl.getBoundingClientRect();
+                        const targetRect = targetEl.getBoundingClientRect();
+
+                        const x1 = sourceRect.right - containerRect.left;
+                        const y1 = sourceRect.top + sourceRect.height / 2 - containerRect.top;
+                        const x2 = targetRect.left - containerRect.left;
+                        const y2 = targetRect.top + targetRect.height / 2 - containerRect.top;
+
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', x1);
+                        line.setAttribute('y1', y1);
+                        line.setAttribute('x2', x2);
+                        line.setAttribute('y2', y2);
+
+                        let color = '#d16d71'; // low
+                        if (mapping.confidence_score >= 0.7) color = '#6a9955'; // high
+                        else if (mapping.confidence_score >= 0.5) color = '#d7ba7d'; // medium
+
+                        line.setAttribute('stroke', color);
+                        line.setAttribute('stroke-width', '2');
+                        line.style.transition = 'stroke 0.3s';
+                        
+                        const showTooltip = (e) => {
+                            tooltip.style.display = 'block';
+                            tooltip.innerHTML = `
+                                <strong>Confidence: ${mapping.confidence_score.toFixed(3)}</strong> (${mapping.similarity_type})<br>
+                                Sample: <em>${mapping.sample_source_value || 'N/A'}</em>
+                                <div class="tooltip-reasoning">${mapping.reasoning}</div>
+                            `;
+                            tooltip.style.left = `${e.pageX + 15}px`;
+                            tooltip.style.top = `${e.pageY + 15}px`;
+                        };
+
+                        const hideTooltip = () => { tooltip.style.display = 'none'; };
+
+                        sourceEl.addEventListener('mousemove', showTooltip);
+                        sourceEl.addEventListener('mouseout', hideTooltip);
+                        targetEl.addEventListener('mousemove', showTooltip);
+                        targetEl.addEventListener('mouseout', hideTooltip);
+
+                        svg.appendChild(line);
+                    }
+                });
+            };
+
+            // Initial draw and event listeners
+            drawLines();
+            window.addEventListener('resize', drawLines);
+            Object.values(filters).forEach(filter => filter.addEventListener('change', drawLines));
+            
+            // Export functionality
+            document.getElementById('export-btn').addEventListener('click', () => {
+                if (typeof html2canvas === 'undefined') {
+                    alert('Export library is not loaded yet. Please try again in a moment.');
+                    return;
+                }
+                html2canvas(document.querySelector(".mapper-container")).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'mapping-visualization.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                });
+            });
+        };
+    </script>
+    </body>
+    </html>
+    

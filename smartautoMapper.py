@@ -125,8 +125,8 @@ class AutoLearningMapper:
         
         return 0.0
     
-    def _discover_semantic_groups(self, field_names: List[str], all_columns: Optional[Dict[str, pd.Series]] = None):
-        """Group semantically similar fields using embeddings of names and data."""
+    """ def _discover_semantic_groups(self, field_names: List[str], all_columns: Optional[Dict[str, pd.Series]] = None):
+        #Group semantically similar fields using embeddings of names and data.
         
         # Handle empty input
         if not field_names:
@@ -154,6 +154,56 @@ class AutoLearningMapper:
             
             # Rest of the method continues...
             
+        except Exception as e:
+            # Gracefully handle embedding failures
+            print(f"Warning: Could not compute semantic similarities: {e}")
+            return """
+    def _discover_semantic_groups(self, field_names: List[str], all_columns: Optional[Dict[str, pd.Series]] = None):
+    
+            # Handle empty or insufficient input           
+        if not field_names or len(field_names) < 2:
+            return
+        
+        # Get embeddings for all field names
+        preprocessed_names = [self.preprocess_field_name(f) for f in field_names]
+        
+        # Ensure we have valid names to process
+        valid_names = [name for name in preprocessed_names if name.strip()]
+        if len(valid_names) < 2:
+            return
+        
+        try:
+            name_embeddings = self.model.encode(valid_names)
+            
+            # Ensure we have a 2D array
+            if name_embeddings.ndim == 1:
+                name_embeddings = name_embeddings.reshape(1, -1)
+            
+            if name_embeddings.shape[0] < 2:
+                return
+                
+            similarity_matrix = cosine_similarity(name_embeddings)
+            
+            # Find semantic groups (similarity > 0.6)
+            threshold = 0.6
+            grouped = set()
+            
+            for i in range(len(valid_names)):
+                if i in grouped:
+                    continue
+                    
+                group = {field_names[i]}  # Use original field name
+                grouped.add(i)
+                
+                for j in range(i + 1, len(valid_names)):
+                    if j not in grouped and similarity_matrix[i][j] > threshold:
+                        group.add(field_names[j])  # Use original field name
+                        grouped.add(j)
+                
+                if len(group) > 1:
+                    group_key = self._find_common_root(list(group))
+                    self.synonym_groups[group_key] = group
+                    
         except Exception as e:
             # Gracefully handle embedding failures
             print(f"Warning: Could not compute semantic similarities: {e}")
@@ -306,11 +356,11 @@ class AutoLearningMapper:
         
         return clean_name
     
-    def smart_suggest_mappings(self, source_fields: List[str], target_fields: List[str], 
+    """ def smart_suggest_mappings(self, source_fields: List[str], target_fields: List[str], 
                               source_df: Optional[pd.DataFrame] = None, 
                               target_df: Optional[pd.DataFrame] = None,
                               min_confidence: float = 0.15) -> List[FieldMapping]:
-        """Smart mapping with auto-learned patterns"""
+        Smart mapping with auto-learned patterns
         
         # First, learn patterns from all fields
         all_fields = source_fields + target_fields
@@ -356,6 +406,118 @@ class AutoLearningMapper:
                     0.10 * data_type_sim +       # Data type similarity
                     0.30 * semantic_group_sim    # Semantic group bonus
                 )
+                
+                if combined_score >= min_confidence:
+                    # Determine similarity type
+                    if semantic_group_sim > 0.9:
+                        sim_type = "Semantic Group Match"
+                        reasoning = "Fields were grouped based on data and name similarity"
+                    elif string_sim > 0.8:
+                        sim_type = "Exact/Close Match"
+                        reasoning = "Field names are very similar"
+                    elif abbrev_sim > 0.7 or (abbrev_sim > 0.4 and string_sim > 0.6):
+                        sim_type = "Abbreviation Match"
+                        reasoning = "One field appears to be abbreviation of the other"
+                    elif semantic_sim > 0.6 and combined_score > 0.4:
+                        sim_type = "Semantic Match"
+                        reasoning = "Fields have similar semantic meaning"
+                    else:
+                        sim_type = "Pattern Match"
+                        reasoning = "Fields share common patterns"
+                    
+                    mapping = FieldMapping(
+                        source_field=src_field,
+                        target_field=tgt_field,
+                        confidence_score=float(combined_score),
+                        similarity_type=sim_type,
+                        reasoning=reasoning,
+                        string_similarity=float(string_sim),
+                        semantic_similarity=float(semantic_sim),
+                        pattern_match=f"auto-learned",
+                        data_type_match=float(data_type_sim),
+                        abbreviation_match=float(abbrev_sim),
+                        semantic_group_match=float(semantic_group_sim)
+                    )
+                    all_mappings.append(mapping)
+        
+        # Sort by confidence
+        all_mappings.sort(key=lambda x: x.confidence_score, reverse=True)
+        return all_mappings """
+    def smart_suggest_mappings(self, source_fields: List[str], target_fields: List[str],
+    source_df: Optional[pd.DataFrame] = None, 
+                          target_df: Optional[pd.DataFrame] = None,
+                          min_confidence: float = 0.15) -> List[FieldMapping]:
+    
+    # Early return for empty inputs
+        if not source_fields or not target_fields:
+            return []
+        
+        # First, learn patterns from all fields
+        all_fields = source_fields + target_fields
+        all_columns = {}
+        if source_df is not None:
+            all_columns.update(source_df.to_dict('series'))
+        if target_df is not None:
+            all_columns.update(target_df.to_dict('series'))
+        if not all_columns:
+            all_columns = None
+        self.auto_discover_patterns(all_fields, all_columns=all_columns)
+        
+        all_mappings = []
+
+        # Pre-calculate all semantic similarities for efficiency
+        processed_source = [self.preprocess_field_name(f) for f in source_fields]
+        processed_target = [self.preprocess_field_name(f) for f in target_fields]
+        
+        # Ensure we have valid processed names
+        if not any(name.strip() for name in processed_source + processed_target):
+            return []
+        
+        try:
+            embeddings = self.model.encode(processed_source + processed_target)
+            
+            # Ensure 2D array
+            if embeddings.ndim == 1:
+                embeddings = embeddings.reshape(1, -1)
+            
+            n_source = len(source_fields)
+            if n_source == 0 or len(target_fields) == 0:
+                return []
+                
+            semantic_similarities = cosine_similarity(embeddings[:n_source], embeddings[n_source:])
+        except Exception as e:
+            print(f"Warning: Could not compute semantic similarities: {e}")
+            # Fallback to zeros matrix
+            semantic_similarities = np.zeros((len(source_fields), len(target_fields)))
+        
+        # Calculate enhanced similarities
+        for i, src_field in enumerate(source_fields):
+            for j, tgt_field in enumerate(target_fields):
+                
+                # Enhanced string similarity
+                string_sim, abbrev_sim = self.enhanced_string_similarity(src_field, tgt_field)
+                
+                # Semantic similarity (from pre-calculated matrix)
+                semantic_sim = semantic_similarities[i][j] if semantic_similarities.size > 0 else 0.0
+                
+                # Data type similarity
+                data_type_sim = self._estimate_data_type_similarity(src_field, tgt_field, source_df, target_df)
+                
+                # Check for semantic group match (strong signal)
+                semantic_group_sim = self._semantic_group_similarity(src_field, tgt_field)
+                
+                # Combined score with adjusted weighting
+                combined_score = (
+                    0.35 * string_sim +          # Increased string similarity weight
+                    0.20 * float(semantic_sim) + # Base semantic similarity  
+                    0.20 * abbrev_sim +          # Increased abbreviation bonus
+                    0.10 * data_type_sim +       # Data type similarity
+                    0.15 * semantic_group_sim    # Reduced semantic group weight
+                )
+                
+                # Boost obvious matches
+                if string_sim > 0.8 or abbrev_sim > 0.7:
+                    combined_score = max(combined_score, 0.7)
                 
                 if combined_score >= min_confidence:
                     # Determine similarity type

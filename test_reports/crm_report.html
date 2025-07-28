@@ -1,0 +1,184 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Data Mapping Report</title>
+        <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #1e1e1e; color: #d4d4d4; margin: 0; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 10px; }
+        h1, h2 { color: #569cd6; margin: 0; }
+        .controls { display: flex; gap: 20px; align-items: center; }
+        .filter-group { display: flex; gap: 10px; align-items: center; background-color: #252526; padding: 5px 10px; border-radius: 5px; }
+        .export-btn { background-color: #0e639c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+        .export-btn:hover { background-color: #1177bb; }
+        .mapper-container { display: flex; position: relative; justify-content: space-between; padding: 20px; background-color: #252526; border-radius: 8px; margin-top: 20px; }
+        .column { width: 45%; }
+        ul { list-style-type: none; padding-left: 20px; }
+        li { background-color: #333; border: 1px solid #444; padding: 8px 12px; margin-bottom: 5px; border-radius: 4px; transition: all 0.2s ease-in-out; cursor: default; }
+        li.unmapped { border-left: 3px solid #d16d71; opacity: 0.6; }
+        li.conflict { border-left: 3px solid #ce9178; }
+        li.hidden-by-filter { opacity: 0.3; }
+        #connections-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .tooltip { position: absolute; display: none; background-color: #1e1e1e; border: 1px solid #569cd6; padding: 10px; border-radius: 6px; pointer-events: none; z-index: 100; max-width: 300px; font-size: 12px; }
+        .tooltip-reasoning { color: #ce9178; margin-top: 5px; }
+    </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Mapping Report: crm_source.csv → crm_target.csv</h1>
+            <div class="controls">
+                <div class="filter-group">
+                    <span>Filter:</span>
+                    <label><input type="checkbox" id="filter-high" checked> High</label>
+                    <label><input type="checkbox" id="filter-medium" checked> Medium</label>
+                    <label><input type="checkbox" id="filter-low" checked> Low</label>
+                </div>
+                <button id="export-btn" class="export-btn">Export as PNG</button>
+            </div>
+        </div>
+        <div id="tooltip" class="tooltip"></div>
+        <div class="mapper-container">
+            <div class="column" id="source-column">
+                <h2>Source Fields</h2>
+                <ul><li id="source-company" data-field="company"><span>company</span></li><li id="source-contact-id" data-field="contact_id"><span>contact_id</span></li><li id="source-email-addr" data-field="email_addr"><span>email_addr</span></li><li id="source-fname" data-field="fname"><span>fname</span></li><li id="source-lead-score" data-field="lead_score"><span>lead_score</span></li><li id="source-lname" data-field="lname"><span>lname</span></li><li id="source-phone-num" data-field="phone_num"><span>phone_num</span></li><li id="source-status" data-field="status"><span>status</span></li></ul>
+            </div>
+            <svg id="connections-svg"></svg>
+            <div class="column" id="target-column">
+                <h2>Target Fields</h2>
+                <ul><li id="target-account-status" data-field="account_status"><span>account_status</span></li><li id="target-contact-phone" data-field="contact_phone"><span>contact_phone</span></li><li id="target-email" data-field="email"><span>email</span></li><li id="target-full-name" data-field="full_name"><span>full_name</span></li><li id="target-id" data-field="id"><span>id</span></li><li id="target-organization" data-field="organization"><span>organization</span></li><li id="target-score" data-field="score"><span>score</span></li></ul>
+            </div>
+        </div>
+        <script>
+        // Load html2canvas library for exporting
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+        document.head.appendChild(script);
+
+        window.onload = () => {
+            const mappings = [{"source_field": "contact_id", "target_field": "id", "confidence_score": 1.0000000238418578, "similarity_type": "Semantic Group Match", "reasoning": "Fields were grouped based on data and name similarity", "string_similarity": 1.0, "semantic_similarity": 1.0000001192092896, "pattern_match": "auto-learned", "data_type_match": 1.0, "abbreviation_match": 1.0, "semantic_group_match": 1.0, "source_data_type": "numeric", "target_data_type": "numeric", "sample_source_value": "1"}, {"source_field": "lead_score", "target_field": "score", "confidence_score": 0.7564303708076476, "similarity_type": "Semantic Group Match", "reasoning": "Fields were grouped based on data and name similarity", "string_similarity": 0.65, "semantic_similarity": 0.7446518540382385, "pattern_match": "auto-learned", "data_type_match": 1.0, "abbreviation_match": 0.65, "semantic_group_match": 1.0, "source_data_type": "numeric", "target_data_type": "numeric", "sample_source_value": "50"}, {"source_field": "status", "target_field": "account_status", "confidence_score": 0.690827865600586, "similarity_type": "Semantic Group Match", "reasoning": "Fields were grouped based on data and name similarity", "string_similarity": 0.65, "semantic_similarity": 0.6666393280029297, "pattern_match": "auto-learned", "data_type_match": 0.5, "abbreviation_match": 0.65, "semantic_group_match": 1.0, "source_data_type": "string", "target_data_type": "unknown", "sample_source_value": "active"}, {"source_field": "email_addr", "target_field": "email", "confidence_score": 0.6873724055290222, "similarity_type": "Semantic Group Match", "reasoning": "Fields were grouped based on data and name similarity", "string_similarity": 0.65, "semantic_similarity": 0.6493620276451111, "pattern_match": "auto-learned", "data_type_match": 0.5, "abbreviation_match": 0.65, "semantic_group_match": 1.0, "source_data_type": "numeric", "target_data_type": "unknown", "sample_source_value": "user0@company.com"}, {"source_field": "phone_num", "target_field": "contact_phone", "confidence_score": 0.5364943218231202, "similarity_type": "Abbreviation Match", "reasoning": "One field appears to be abbreviation of the other", "string_similarity": 0.65, "semantic_similarity": 0.6449716091156006, "pattern_match": "auto-learned", "data_type_match": 0.5, "abbreviation_match": 0.65, "semantic_group_match": 0.0, "source_data_type": "numeric", "target_data_type": "unknown", "sample_source_value": "555-1000"}, {"source_field": "company", "target_field": "organization", "confidence_score": 0.38386663993199666, "similarity_type": "Semantic Group Match", "reasoning": "Fields were grouped based on data and name similarity", "string_similarity": 0.16666666666666663, "semantic_similarity": 0.6276665329933167, "pattern_match": "auto-learned", "data_type_match": 0.5, "abbreviation_match": 0.0, "semantic_group_match": 1.0, "source_data_type": "numeric", "target_data_type": "unknown", "sample_source_value": "Company 0"}, {"source_field": "fname", "target_field": "full_name", "confidence_score": 0.3542396571901109, "similarity_type": "Pattern Match", "reasoning": "Fields share common patterns", "string_similarity": 0.5555555555555556, "semantic_similarity": 0.5489760637283325, "pattern_match": "auto-learned", "data_type_match": 0.5, "abbreviation_match": 0.0, "semantic_group_match": 0.0, "source_data_type": "numeric", "target_data_type": "unknown", "sample_source_value": "FirstName0"}];
+            const unmappedSource = new Set(["lname"]);
+            const unmappedTarget = new Set([]);
+            const conflictingTargets = new Set(["full_name"]);
+
+            const svg = document.getElementById('connections-svg');
+            const container = document.querySelector('.mapper-container');
+            const tooltip = document.getElementById('tooltip');
+            
+            const filters = {
+                high: document.getElementById('filter-high'),
+                medium: document.getElementById('filter-medium'),
+                low: document.getElementById('filter-low')
+            };
+
+            if (!container) return;
+
+            const getVisibleMappings = () => {
+                return mappings.filter(m => {
+                    const score = m.confidence_score;
+                    if (score >= 0.7 && filters.high.checked) return true;
+                    if (score >= 0.5 && score < 0.7 && filters.medium.checked) return true;
+                    if (score < 0.5 && filters.low.checked) return true;
+                    return false;
+                });
+            };
+
+            const drawLines = () => {
+                svg.innerHTML = ''; // Clear previous lines
+                const containerRect = container.getBoundingClientRect();
+                const visibleMappings = getVisibleMappings();
+                const visibleSourceFields = new Set(visibleMappings.map(m => m.source_field));
+                const visibleTargetFields = new Set(visibleMappings.map(m => m.target_field));
+
+                // Toggle visibility class on list items
+                document.querySelectorAll('#source-column li, #target-column li').forEach(li => {
+                    const fieldName = li.dataset.field;
+                    if (unmappedSource.has(fieldName) || unmappedTarget.has(fieldName)) {
+                        li.classList.add('unmapped');
+                    } else if (conflictingTargets.has(fieldName)) {
+                        li.classList.add('conflict');
+                    }
+
+                    if (!visibleSourceFields.has(fieldName) && !visibleTargetFields.has(fieldName) && !unmappedSource.has(fieldName) && !unmappedTarget.has(fieldName)) {
+                         li.classList.add('hidden-by-filter');
+                    } else {
+                         li.classList.remove('hidden-by-filter');
+                    }
+                });
+
+                visibleMappings.forEach(mapping => {
+                    const sourceId = `source-${mapping.source_field.replace(/[^a-zA-Z0-9]/g, '-')}`;
+                    const targetId = `target-${mapping.target_field.replace(/[^a-zA-Z0-9]/g, '-')}`;
+
+                    const sourceEl = document.getElementById(sourceId);
+                    const targetEl = document.getElementById(targetId);
+
+                    if (sourceEl && targetEl) {
+                        const sourceRect = sourceEl.getBoundingClientRect();
+                        const targetRect = targetEl.getBoundingClientRect();
+
+                        const x1 = sourceRect.right - containerRect.left;
+                        const y1 = sourceRect.top + sourceRect.height / 2 - containerRect.top;
+                        const x2 = targetRect.left - containerRect.left;
+                        const y2 = targetRect.top + targetRect.height / 2 - containerRect.top;
+
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', x1);
+                        line.setAttribute('y1', y1);
+                        line.setAttribute('x2', x2);
+                        line.setAttribute('y2', y2);
+
+                        let color = '#d16d71'; // low
+                        if (mapping.confidence_score >= 0.7) color = '#6a9955'; // high
+                        else if (mapping.confidence_score >= 0.5) color = '#d7ba7d'; // medium
+
+                        line.setAttribute('stroke', color);
+                        line.setAttribute('stroke-width', '2');
+                        line.style.transition = 'stroke 0.3s';
+                        
+                        const showTooltip = (e) => {
+                            tooltip.style.display = 'block';
+                            tooltip.innerHTML = `
+                                <strong>Confidence: ${mapping.confidence_score.toFixed(3)}</strong> (${mapping.similarity_type})<br>
+                                Sample: <em>${mapping.sample_source_value || 'N/A'}</em>
+                                <div class="tooltip-reasoning">${mapping.reasoning}</div>
+                            `;
+                            tooltip.style.left = `${e.pageX + 15}px`;
+                            tooltip.style.top = `${e.pageY + 15}px`;
+                        };
+
+                        const hideTooltip = () => { tooltip.style.display = 'none'; };
+
+                        sourceEl.addEventListener('mousemove', showTooltip);
+                        sourceEl.addEventListener('mouseout', hideTooltip);
+                        targetEl.addEventListener('mousemove', showTooltip);
+                        targetEl.addEventListener('mouseout', hideTooltip);
+
+                        svg.appendChild(line);
+                    }
+                });
+            };
+
+            // Initial draw and event listeners
+            drawLines();
+            window.addEventListener('resize', drawLines);
+            Object.values(filters).forEach(filter => filter.addEventListener('change', drawLines));
+            
+            // Export functionality
+            document.getElementById('export-btn').addEventListener('click', () => {
+                if (typeof html2canvas === 'undefined') {
+                    alert('Export library is not loaded yet. Please try again in a moment.');
+                    return;
+                }
+                html2canvas(document.querySelector(".mapper-container")).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'mapping-visualization.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                });
+            });
+        };
+    </script>
+    </body>
+    </html>
+    

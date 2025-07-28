@@ -1,0 +1,802 @@
+[
+  {
+    "prod_id":1,
+    "product_name":"Product 1",
+    "price_usd":10.0,
+    "category_code":"CAT0",
+    "stock_count":50,
+    "created_date":"2023-01-01"
+  },
+  {
+    "prod_id":2,
+    "product_name":"Product 2",
+    "price_usd":12.5,
+    "category_code":"CAT1",
+    "stock_count":51,
+    "created_date":"2023-01-02"
+  },
+  {
+    "prod_id":3,
+    "product_name":"Product 3",
+    "price_usd":15.0,
+    "category_code":"CAT2",
+    "stock_count":52,
+    "created_date":"2023-01-03"
+  },
+  {
+    "prod_id":4,
+    "product_name":"Product 4",
+    "price_usd":17.5,
+    "category_code":"CAT3",
+    "stock_count":53,
+    "created_date":"2023-01-04"
+  },
+  {
+    "prod_id":5,
+    "product_name":"Product 5",
+    "price_usd":20.0,
+    "category_code":"CAT4",
+    "stock_count":54,
+    "created_date":"2023-01-05"
+  },
+  {
+    "prod_id":6,
+    "product_name":"Product 6",
+    "price_usd":22.5,
+    "category_code":"CAT0",
+    "stock_count":55,
+    "created_date":"2023-01-06"
+  },
+  {
+    "prod_id":7,
+    "product_name":"Product 7",
+    "price_usd":25.0,
+    "category_code":"CAT1",
+    "stock_count":56,
+    "created_date":"2023-01-07"
+  },
+  {
+    "prod_id":8,
+    "product_name":"Product 8",
+    "price_usd":27.5,
+    "category_code":"CAT2",
+    "stock_count":57,
+    "created_date":"2023-01-08"
+  },
+  {
+    "prod_id":9,
+    "product_name":"Product 9",
+    "price_usd":30.0,
+    "category_code":"CAT3",
+    "stock_count":58,
+    "created_date":"2023-01-09"
+  },
+  {
+    "prod_id":10,
+    "product_name":"Product 10",
+    "price_usd":32.5,
+    "category_code":"CAT4",
+    "stock_count":59,
+    "created_date":"2023-01-10"
+  },
+  {
+    "prod_id":11,
+    "product_name":"Product 11",
+    "price_usd":35.0,
+    "category_code":"CAT0",
+    "stock_count":60,
+    "created_date":"2023-01-11"
+  },
+  {
+    "prod_id":12,
+    "product_name":"Product 12",
+    "price_usd":37.5,
+    "category_code":"CAT1",
+    "stock_count":61,
+    "created_date":"2023-01-12"
+  },
+  {
+    "prod_id":13,
+    "product_name":"Product 13",
+    "price_usd":40.0,
+    "category_code":"CAT2",
+    "stock_count":62,
+    "created_date":"2023-01-13"
+  },
+  {
+    "prod_id":14,
+    "product_name":"Product 14",
+    "price_usd":42.5,
+    "category_code":"CAT3",
+    "stock_count":63,
+    "created_date":"2023-01-14"
+  },
+  {
+    "prod_id":15,
+    "product_name":"Product 15",
+    "price_usd":45.0,
+    "category_code":"CAT4",
+    "stock_count":64,
+    "created_date":"2023-01-15"
+  },
+  {
+    "prod_id":16,
+    "product_name":"Product 16",
+    "price_usd":47.5,
+    "category_code":"CAT0",
+    "stock_count":65,
+    "created_date":"2023-01-16"
+  },
+  {
+    "prod_id":17,
+    "product_name":"Product 17",
+    "price_usd":50.0,
+    "category_code":"CAT1",
+    "stock_count":66,
+    "created_date":"2023-01-17"
+  },
+  {
+    "prod_id":18,
+    "product_name":"Product 18",
+    "price_usd":52.5,
+    "category_code":"CAT2",
+    "stock_count":67,
+    "created_date":"2023-01-18"
+  },
+  {
+    "prod_id":19,
+    "product_name":"Product 19",
+    "price_usd":55.0,
+    "category_code":"CAT3",
+    "stock_count":68,
+    "created_date":"2023-01-19"
+  },
+  {
+    "prod_id":20,
+    "product_name":"Product 20",
+    "price_usd":57.5,
+    "category_code":"CAT4",
+    "stock_count":69,
+    "created_date":"2023-01-20"
+  },
+  {
+    "prod_id":21,
+    "product_name":"Product 21",
+    "price_usd":60.0,
+    "category_code":"CAT0",
+    "stock_count":70,
+    "created_date":"2023-01-21"
+  },
+  {
+    "prod_id":22,
+    "product_name":"Product 22",
+    "price_usd":62.5,
+    "category_code":"CAT1",
+    "stock_count":71,
+    "created_date":"2023-01-22"
+  },
+  {
+    "prod_id":23,
+    "product_name":"Product 23",
+    "price_usd":65.0,
+    "category_code":"CAT2",
+    "stock_count":72,
+    "created_date":"2023-01-23"
+  },
+  {
+    "prod_id":24,
+    "product_name":"Product 24",
+    "price_usd":67.5,
+    "category_code":"CAT3",
+    "stock_count":73,
+    "created_date":"2023-01-24"
+  },
+  {
+    "prod_id":25,
+    "product_name":"Product 25",
+    "price_usd":70.0,
+    "category_code":"CAT4",
+    "stock_count":74,
+    "created_date":"2023-01-25"
+  },
+  {
+    "prod_id":26,
+    "product_name":"Product 26",
+    "price_usd":72.5,
+    "category_code":"CAT0",
+    "stock_count":75,
+    "created_date":"2023-01-26"
+  },
+  {
+    "prod_id":27,
+    "product_name":"Product 27",
+    "price_usd":75.0,
+    "category_code":"CAT1",
+    "stock_count":76,
+    "created_date":"2023-01-27"
+  },
+  {
+    "prod_id":28,
+    "product_name":"Product 28",
+    "price_usd":77.5,
+    "category_code":"CAT2",
+    "stock_count":77,
+    "created_date":"2023-01-28"
+  },
+  {
+    "prod_id":29,
+    "product_name":"Product 29",
+    "price_usd":80.0,
+    "category_code":"CAT3",
+    "stock_count":78,
+    "created_date":"2023-01-29"
+  },
+  {
+    "prod_id":30,
+    "product_name":"Product 30",
+    "price_usd":82.5,
+    "category_code":"CAT4",
+    "stock_count":79,
+    "created_date":"2023-01-30"
+  },
+  {
+    "prod_id":31,
+    "product_name":"Product 31",
+    "price_usd":85.0,
+    "category_code":"CAT0",
+    "stock_count":50,
+    "created_date":"2023-01-31"
+  },
+  {
+    "prod_id":32,
+    "product_name":"Product 32",
+    "price_usd":87.5,
+    "category_code":"CAT1",
+    "stock_count":51,
+    "created_date":"2023-02-01"
+  },
+  {
+    "prod_id":33,
+    "product_name":"Product 33",
+    "price_usd":90.0,
+    "category_code":"CAT2",
+    "stock_count":52,
+    "created_date":"2023-02-02"
+  },
+  {
+    "prod_id":34,
+    "product_name":"Product 34",
+    "price_usd":92.5,
+    "category_code":"CAT3",
+    "stock_count":53,
+    "created_date":"2023-02-03"
+  },
+  {
+    "prod_id":35,
+    "product_name":"Product 35",
+    "price_usd":95.0,
+    "category_code":"CAT4",
+    "stock_count":54,
+    "created_date":"2023-02-04"
+  },
+  {
+    "prod_id":36,
+    "product_name":"Product 36",
+    "price_usd":97.5,
+    "category_code":"CAT0",
+    "stock_count":55,
+    "created_date":"2023-02-05"
+  },
+  {
+    "prod_id":37,
+    "product_name":"Product 37",
+    "price_usd":100.0,
+    "category_code":"CAT1",
+    "stock_count":56,
+    "created_date":"2023-02-06"
+  },
+  {
+    "prod_id":38,
+    "product_name":"Product 38",
+    "price_usd":102.5,
+    "category_code":"CAT2",
+    "stock_count":57,
+    "created_date":"2023-02-07"
+  },
+  {
+    "prod_id":39,
+    "product_name":"Product 39",
+    "price_usd":105.0,
+    "category_code":"CAT3",
+    "stock_count":58,
+    "created_date":"2023-02-08"
+  },
+  {
+    "prod_id":40,
+    "product_name":"Product 40",
+    "price_usd":107.5,
+    "category_code":"CAT4",
+    "stock_count":59,
+    "created_date":"2023-02-09"
+  },
+  {
+    "prod_id":41,
+    "product_name":"Product 41",
+    "price_usd":110.0,
+    "category_code":"CAT0",
+    "stock_count":60,
+    "created_date":"2023-02-10"
+  },
+  {
+    "prod_id":42,
+    "product_name":"Product 42",
+    "price_usd":112.5,
+    "category_code":"CAT1",
+    "stock_count":61,
+    "created_date":"2023-02-11"
+  },
+  {
+    "prod_id":43,
+    "product_name":"Product 43",
+    "price_usd":115.0,
+    "category_code":"CAT2",
+    "stock_count":62,
+    "created_date":"2023-02-12"
+  },
+  {
+    "prod_id":44,
+    "product_name":"Product 44",
+    "price_usd":117.5,
+    "category_code":"CAT3",
+    "stock_count":63,
+    "created_date":"2023-02-13"
+  },
+  {
+    "prod_id":45,
+    "product_name":"Product 45",
+    "price_usd":120.0,
+    "category_code":"CAT4",
+    "stock_count":64,
+    "created_date":"2023-02-14"
+  },
+  {
+    "prod_id":46,
+    "product_name":"Product 46",
+    "price_usd":122.5,
+    "category_code":"CAT0",
+    "stock_count":65,
+    "created_date":"2023-02-15"
+  },
+  {
+    "prod_id":47,
+    "product_name":"Product 47",
+    "price_usd":125.0,
+    "category_code":"CAT1",
+    "stock_count":66,
+    "created_date":"2023-02-16"
+  },
+  {
+    "prod_id":48,
+    "product_name":"Product 48",
+    "price_usd":127.5,
+    "category_code":"CAT2",
+    "stock_count":67,
+    "created_date":"2023-02-17"
+  },
+  {
+    "prod_id":49,
+    "product_name":"Product 49",
+    "price_usd":130.0,
+    "category_code":"CAT3",
+    "stock_count":68,
+    "created_date":"2023-02-18"
+  },
+  {
+    "prod_id":50,
+    "product_name":"Product 50",
+    "price_usd":132.5,
+    "category_code":"CAT4",
+    "stock_count":69,
+    "created_date":"2023-02-19"
+  },
+  {
+    "prod_id":51,
+    "product_name":"Product 51",
+    "price_usd":135.0,
+    "category_code":"CAT0",
+    "stock_count":70,
+    "created_date":"2023-02-20"
+  },
+  {
+    "prod_id":52,
+    "product_name":"Product 52",
+    "price_usd":137.5,
+    "category_code":"CAT1",
+    "stock_count":71,
+    "created_date":"2023-02-21"
+  },
+  {
+    "prod_id":53,
+    "product_name":"Product 53",
+    "price_usd":140.0,
+    "category_code":"CAT2",
+    "stock_count":72,
+    "created_date":"2023-02-22"
+  },
+  {
+    "prod_id":54,
+    "product_name":"Product 54",
+    "price_usd":142.5,
+    "category_code":"CAT3",
+    "stock_count":73,
+    "created_date":"2023-02-23"
+  },
+  {
+    "prod_id":55,
+    "product_name":"Product 55",
+    "price_usd":145.0,
+    "category_code":"CAT4",
+    "stock_count":74,
+    "created_date":"2023-02-24"
+  },
+  {
+    "prod_id":56,
+    "product_name":"Product 56",
+    "price_usd":147.5,
+    "category_code":"CAT0",
+    "stock_count":75,
+    "created_date":"2023-02-25"
+  },
+  {
+    "prod_id":57,
+    "product_name":"Product 57",
+    "price_usd":150.0,
+    "category_code":"CAT1",
+    "stock_count":76,
+    "created_date":"2023-02-26"
+  },
+  {
+    "prod_id":58,
+    "product_name":"Product 58",
+    "price_usd":152.5,
+    "category_code":"CAT2",
+    "stock_count":77,
+    "created_date":"2023-02-27"
+  },
+  {
+    "prod_id":59,
+    "product_name":"Product 59",
+    "price_usd":155.0,
+    "category_code":"CAT3",
+    "stock_count":78,
+    "created_date":"2023-02-28"
+  },
+  {
+    "prod_id":60,
+    "product_name":"Product 60",
+    "price_usd":157.5,
+    "category_code":"CAT4",
+    "stock_count":79,
+    "created_date":"2023-03-01"
+  },
+  {
+    "prod_id":61,
+    "product_name":"Product 61",
+    "price_usd":160.0,
+    "category_code":"CAT0",
+    "stock_count":50,
+    "created_date":"2023-03-02"
+  },
+  {
+    "prod_id":62,
+    "product_name":"Product 62",
+    "price_usd":162.5,
+    "category_code":"CAT1",
+    "stock_count":51,
+    "created_date":"2023-03-03"
+  },
+  {
+    "prod_id":63,
+    "product_name":"Product 63",
+    "price_usd":165.0,
+    "category_code":"CAT2",
+    "stock_count":52,
+    "created_date":"2023-03-04"
+  },
+  {
+    "prod_id":64,
+    "product_name":"Product 64",
+    "price_usd":167.5,
+    "category_code":"CAT3",
+    "stock_count":53,
+    "created_date":"2023-03-05"
+  },
+  {
+    "prod_id":65,
+    "product_name":"Product 65",
+    "price_usd":170.0,
+    "category_code":"CAT4",
+    "stock_count":54,
+    "created_date":"2023-03-06"
+  },
+  {
+    "prod_id":66,
+    "product_name":"Product 66",
+    "price_usd":172.5,
+    "category_code":"CAT0",
+    "stock_count":55,
+    "created_date":"2023-03-07"
+  },
+  {
+    "prod_id":67,
+    "product_name":"Product 67",
+    "price_usd":175.0,
+    "category_code":"CAT1",
+    "stock_count":56,
+    "created_date":"2023-03-08"
+  },
+  {
+    "prod_id":68,
+    "product_name":"Product 68",
+    "price_usd":177.5,
+    "category_code":"CAT2",
+    "stock_count":57,
+    "created_date":"2023-03-09"
+  },
+  {
+    "prod_id":69,
+    "product_name":"Product 69",
+    "price_usd":180.0,
+    "category_code":"CAT3",
+    "stock_count":58,
+    "created_date":"2023-03-10"
+  },
+  {
+    "prod_id":70,
+    "product_name":"Product 70",
+    "price_usd":182.5,
+    "category_code":"CAT4",
+    "stock_count":59,
+    "created_date":"2023-03-11"
+  },
+  {
+    "prod_id":71,
+    "product_name":"Product 71",
+    "price_usd":185.0,
+    "category_code":"CAT0",
+    "stock_count":60,
+    "created_date":"2023-03-12"
+  },
+  {
+    "prod_id":72,
+    "product_name":"Product 72",
+    "price_usd":187.5,
+    "category_code":"CAT1",
+    "stock_count":61,
+    "created_date":"2023-03-13"
+  },
+  {
+    "prod_id":73,
+    "product_name":"Product 73",
+    "price_usd":190.0,
+    "category_code":"CAT2",
+    "stock_count":62,
+    "created_date":"2023-03-14"
+  },
+  {
+    "prod_id":74,
+    "product_name":"Product 74",
+    "price_usd":192.5,
+    "category_code":"CAT3",
+    "stock_count":63,
+    "created_date":"2023-03-15"
+  },
+  {
+    "prod_id":75,
+    "product_name":"Product 75",
+    "price_usd":195.0,
+    "category_code":"CAT4",
+    "stock_count":64,
+    "created_date":"2023-03-16"
+  },
+  {
+    "prod_id":76,
+    "product_name":"Product 76",
+    "price_usd":197.5,
+    "category_code":"CAT0",
+    "stock_count":65,
+    "created_date":"2023-03-17"
+  },
+  {
+    "prod_id":77,
+    "product_name":"Product 77",
+    "price_usd":200.0,
+    "category_code":"CAT1",
+    "stock_count":66,
+    "created_date":"2023-03-18"
+  },
+  {
+    "prod_id":78,
+    "product_name":"Product 78",
+    "price_usd":202.5,
+    "category_code":"CAT2",
+    "stock_count":67,
+    "created_date":"2023-03-19"
+  },
+  {
+    "prod_id":79,
+    "product_name":"Product 79",
+    "price_usd":205.0,
+    "category_code":"CAT3",
+    "stock_count":68,
+    "created_date":"2023-03-20"
+  },
+  {
+    "prod_id":80,
+    "product_name":"Product 80",
+    "price_usd":207.5,
+    "category_code":"CAT4",
+    "stock_count":69,
+    "created_date":"2023-03-21"
+  },
+  {
+    "prod_id":81,
+    "product_name":"Product 81",
+    "price_usd":210.0,
+    "category_code":"CAT0",
+    "stock_count":70,
+    "created_date":"2023-03-22"
+  },
+  {
+    "prod_id":82,
+    "product_name":"Product 82",
+    "price_usd":212.5,
+    "category_code":"CAT1",
+    "stock_count":71,
+    "created_date":"2023-03-23"
+  },
+  {
+    "prod_id":83,
+    "product_name":"Product 83",
+    "price_usd":215.0,
+    "category_code":"CAT2",
+    "stock_count":72,
+    "created_date":"2023-03-24"
+  },
+  {
+    "prod_id":84,
+    "product_name":"Product 84",
+    "price_usd":217.5,
+    "category_code":"CAT3",
+    "stock_count":73,
+    "created_date":"2023-03-25"
+  },
+  {
+    "prod_id":85,
+    "product_name":"Product 85",
+    "price_usd":220.0,
+    "category_code":"CAT4",
+    "stock_count":74,
+    "created_date":"2023-03-26"
+  },
+  {
+    "prod_id":86,
+    "product_name":"Product 86",
+    "price_usd":222.5,
+    "category_code":"CAT0",
+    "stock_count":75,
+    "created_date":"2023-03-27"
+  },
+  {
+    "prod_id":87,
+    "product_name":"Product 87",
+    "price_usd":225.0,
+    "category_code":"CAT1",
+    "stock_count":76,
+    "created_date":"2023-03-28"
+  },
+  {
+    "prod_id":88,
+    "product_name":"Product 88",
+    "price_usd":227.5,
+    "category_code":"CAT2",
+    "stock_count":77,
+    "created_date":"2023-03-29"
+  },
+  {
+    "prod_id":89,
+    "product_name":"Product 89",
+    "price_usd":230.0,
+    "category_code":"CAT3",
+    "stock_count":78,
+    "created_date":"2023-03-30"
+  },
+  {
+    "prod_id":90,
+    "product_name":"Product 90",
+    "price_usd":232.5,
+    "category_code":"CAT4",
+    "stock_count":79,
+    "created_date":"2023-03-31"
+  },
+  {
+    "prod_id":91,
+    "product_name":"Product 91",
+    "price_usd":235.0,
+    "category_code":"CAT0",
+    "stock_count":50,
+    "created_date":"2023-04-01"
+  },
+  {
+    "prod_id":92,
+    "product_name":"Product 92",
+    "price_usd":237.5,
+    "category_code":"CAT1",
+    "stock_count":51,
+    "created_date":"2023-04-02"
+  },
+  {
+    "prod_id":93,
+    "product_name":"Product 93",
+    "price_usd":240.0,
+    "category_code":"CAT2",
+    "stock_count":52,
+    "created_date":"2023-04-03"
+  },
+  {
+    "prod_id":94,
+    "product_name":"Product 94",
+    "price_usd":242.5,
+    "category_code":"CAT3",
+    "stock_count":53,
+    "created_date":"2023-04-04"
+  },
+  {
+    "prod_id":95,
+    "product_name":"Product 95",
+    "price_usd":245.0,
+    "category_code":"CAT4",
+    "stock_count":54,
+    "created_date":"2023-04-05"
+  },
+  {
+    "prod_id":96,
+    "product_name":"Product 96",
+    "price_usd":247.5,
+    "category_code":"CAT0",
+    "stock_count":55,
+    "created_date":"2023-04-06"
+  },
+  {
+    "prod_id":97,
+    "product_name":"Product 97",
+    "price_usd":250.0,
+    "category_code":"CAT1",
+    "stock_count":56,
+    "created_date":"2023-04-07"
+  },
+  {
+    "prod_id":98,
+    "product_name":"Product 98",
+    "price_usd":252.5,
+    "category_code":"CAT2",
+    "stock_count":57,
+    "created_date":"2023-04-08"
+  },
+  {
+    "prod_id":99,
+    "product_name":"Product 99",
+    "price_usd":255.0,
+    "category_code":"CAT3",
+    "stock_count":58,
+    "created_date":"2023-04-09"
+  },
+  {
+    "prod_id":100,
+    "product_name":"Product 100",
+    "price_usd":257.5,
+    "category_code":"CAT4",
+    "stock_count":59,
+    "created_date":"2023-04-10"
+  }
+]
